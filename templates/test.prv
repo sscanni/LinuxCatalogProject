@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Steve's Test Program</title>
+    <style>
+      body { font-family: Calibri,Candara,
+      Segoe,Segoe UI,Optima,Arial,sans-serif; }
+      h1, h2, form { text-align: center; }
+      div.post { <--border: 1px solid #999; -->
+                 padding: 5px 5px;
+                 margin: 10px 20%%; }
+       hr { margin: auto; width: 60%%; }
+       li { font-size: 20px;}
+    </style>
+  </head>
+  <body>
+    <h1>Steve's Test Program</h1>
+    <hr>
+    <div class=post>
+      <ul>
+        <li class=text>This is a test.</li>
+      </ul>
+    </div>
+    <hr>
+  </body>
+</html>
