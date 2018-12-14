@@ -86,6 +86,6 @@ class ItemLog(Base):
     email = Column(String(250), nullable=False)
     user_id = Column(String(250), nullable=False)
 
-engine = create_engine('postgresql://grader:ubuntu@localhost:5432/catalog')
+engine = create_engine('postgresql://catalog:ubuntu@localhost:5432/catalog')
  
 Base.metadata.create_all(engine)
