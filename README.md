@@ -1,66 +1,71 @@
-# Sports Catalog Website
+# Linux Server Configuration Project
 
-## Project Overview
+## IP Address and SSH port for the server
 
-This is a Sport Catalog website application developed using Python, Flask, SQLAlchemy, HTML, CSS and Bootstrap. The website lets a user create sports categories and items within those categories. Categories and items can be changed and/or deleted once they have been created. Categories and items can only be modified or deleted by the user that created them. The information that is used in the program is stored in a SQLLite database. The program contains the following features:
+```
+IP Address: 35.183.33.123
+Port: 2200
+```
+## URL to the hosted web application
 
-* Reads and displays category and item information from a database.
-* Includes forms to allow a user to add new categories and items.
-* Includes forms to allow a user to update existing categories and items.
-* Gives the user the ability to delete existing categories and items.
-* Only allows create, update and delete functions only when a user is logged in otherwise the website functions as display only.
-* The website implements a third party authentication and authorization service utilizing Google and Facebook accounts.
-* The website provides a "login" and "logout" link on the navigation bar at the top of each page.
-* The website provides the ability to assign an image to an item. The program will use the images that are placed in the "image" folder.
-* The website provides a JSON endpoint that serves the category and item data from the database.
+[http://35.183.33.123.xip.io/](http://35.183.33.123.xip.io/)
 
-## Installation Instructions
+## Summary of software installed and configuration changes made
 
-* The program does not require any setup programs to be run prior to executing the website program for the first time.
+Installed the following packages:
 
-* The files that are on Github should be downloaded into a directory. The required folder structures and files are already in place.
+- apache2 -web server
+- libapache2-mod-wsgi -Python WSGI adapter module for Apache
+- postgresql - database
+- git - version control
+- virtualenv - virtual environment for installing packages
+- Flask - flask python framework
+- python-pip - to install python packages
+- tree - to view dir structure as a tree
+- SQLAlchemy - for processing databases in python
+- flask-sqlalchemy - for processing databases with flask
+- python-psycopg2 - postgresql with python
+- psycopg2 - postgresql with python
+- oauth2client - oauth
+- funtools - needed for login_required function
 
-* The "image" folder contains some starter item images. To use additional new images on the website, new images should be uploaded to the server and placed in the "image" folder.
 
-* A starter "catalog.db" database file is included and should be used.
 
-## List of Program Files Included
+Configurations changes:
 
-* app.py - This is the main executable program
-* models.py - This contains the database models
-* client_secrets.json - contains the information for utilizing the Google authentication and authorization service.
-* fb_client_secrets.json - contains the information for utilizing the Facebook authentication and authorization service.
-* template folder - contains all of the HTML templates used by the program.
-* static folder - contains the styles.css file and banner image.
-* images folder - contains the item images that the web site displays.
+- Updated the currently installed packages
+-  Change the SSH port from 22 to 2200 and configured the Lightsail firewall to allow it.
+- Configured the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+- Created a new account name "grader".
+- Gave the "grader" user sudo permission.
+- Created an SSH key pair for the "grader" user using the ssh-keygen pair tool.
+- created postgresql grader user
+- Created a new database user named "catalog" that has limited permissions to your catalog application database.
+- set up git repository
+- Created directory structure under the /var/www directory.
+- Created a /etc/apache2/sites-available/catalog.conf file and made appropriate changes for the catalog application.
+- Created a catalog.wsgi file in the /var/www/catalog directory and made appropriate changes.
+- cloned and setup the item Catalog application from my git repository.
+- Added http://35.183.33.123.xip.io to the google oauth app list on the google website.
 
-## Design of the Code
+Catalog directory structure and files:
+```
+|--------catalog
+|----------------catalog
+|-----------------------images
+|-----------------------static
+|-----------------------templates
+|-----------------------venv
+|-----------------------__init__.py
+|-----------------------models.py
+|-----------------------client_secrets.json
+|-----------------------fb_client_secrets.json
+|----------------catalog.wsgi
+```
 
-The application consists of two Python files, app.py and models.py. App.py contains the endpoints for the website. The models.py contains the database table definition and models.
+## Any third-party resources used to complete Project
 
-The app.py program contains the following endpoints:
-
-* "/catalog.json/" - catalogJSON() function - serves json for the category and item information on the database.
-
-* "/catalog/categories/" or "/" - showCategories() function - displays the main screen which displays all of the categories on the left and the seven most recently added items. Returns the categories.html template.
-
-* "/catalog/_name_/items/" - showCategoryItems() function - where _name_ is the selected category name. Displays all of the items for the selected category.  For example, http://localhost:8000/catalog/Snowboarding/items. Returns the categories.html template.
-
-* "/catalog/_category_/_item_" - showItem(category_name, item_name) function. Display a specific item within a category. For example, http://localhost:8000/catalog/Snowboarding/Snowboard. Returns the item.html template.
-
-* "/catalog/item/new/" - newItem() function. Add a new item. Example, http://localhost:8000/catalog/item/new. Returns the newitem.html template.
-
-* "/catalog/_category_/_item_/edit/" - editItem(category_name, item_name) function. Edit an item. Example, http://localhost:8000/catalog/Snowboarding/Snowboard/edit. Returns the edititem.html template.
-
-* "/catalog/_category_/_item_/delete/" - deleteItem(category_name, item_name) function. Delete an item. Example, http://localhost:8000/catalog/Snowboarding/Snowboard/delete/.
-
-* "/catalog/category/_category_/delete/" - deleteCategory(category_name) function. Delete a category. Example, http://localhost:8000/catalog/category/Snowboarding/delete/
-
-* "/catalog/category/_category_/edit/" - editCategory(category_name) function.  Edit a category. Example, http://localhost:8000/catalog/category/Snowboarding/edit/.  Returns the editcategory.html template.
-
-* "/catalog/category/new/" - newCategory(). Add a new category. Example, http://localhost:8000/catalog/category/new/. Returns the newcategory.html template.
-
-* /catalog/showItemLogTrans/_category_/_item_/" - showItemLogTrans(category_name, item_name) function. Display transaction log for an item. Example, http://localhost:8000/catalog/showItemlogTrans/Baseball/Bat. Returns the logview.html template.
+Using xip.io to obtain a DNS name for the instance's ip address. This was required for the oauth authentication.
 
 ## Credits and Acknowledgments
 Created by: Steven Scanniello
